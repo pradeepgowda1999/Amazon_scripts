@@ -15,7 +15,7 @@ pipeline{
         }
         stage('Checkout from Git'){
             steps{
-                git branch: 'main', url: 'https://github.com/ElevenDevOps/Amazon-FE.git'
+                git branch: 'main', url: 'https://github.com/pradeepgowda1999/Amazon-FE.git'
             }
         }
         stage("Sonarqube Analysis "){
@@ -54,8 +54,8 @@ pipeline{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
                        sh "docker build -t amazon ."
-                       sh "docker tag amazon ravirekha1/amazon:latest "
-                       sh "docker push ravirekha1/amazon:latest "
+                       sh "docker tag amazon pradeep653/amazon:latest "
+                       sh "docker push pradeep653/amazon:latest "
                     }
                 }
             }
@@ -69,7 +69,7 @@ pipeline{
             steps{
                 sh "docker stop amazon || true"  // Stop the container if it's running, ignore errors
                 sh "docker rm amazon || true" 
-                sh "docker run -d --name amazon -p 4000:3000 ravirekha1/amazon:latest"
+                sh "docker run -d --name amazon -p 4000:3000 pradeep653/amazon:latest"
             }
         }
         stage('Deploy to Kubernetes') {
